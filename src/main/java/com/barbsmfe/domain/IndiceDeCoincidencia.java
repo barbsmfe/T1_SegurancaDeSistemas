@@ -13,7 +13,7 @@ public class IndiceDeCoincidencia {
 		inicializarindiceDeCoincidenciaDasLetras();
 	}
 
-	public void encontrarIndiceDeCoincidencia(String textoCriptografado) {
+	public double encontrarIndiceDeCoincidencia(String textoCriptografado) {
 		textoCriptografado = textoCriptografado.replaceAll("\\s+", "");
 		verificarFrequenciaDeLetrasDoTexto(textoCriptografado);
 
@@ -22,7 +22,8 @@ public class IndiceDeCoincidencia {
 		verificarIndiceDeCoincidenciaDasLetrasDoTexto();
 		double indiceDeCoincidencia = verificarIndiceDeCoincidenciaDoTexto(divisor);		
 		
-		System.out.println(indiceDeCoincidencia);
+		//System.out.println(indiceDeCoincidencia);
+		return indiceDeCoincidencia;
 	}
 	
 	private double verificarIndiceDeCoincidenciaDoTexto(double divisor) {
@@ -36,7 +37,7 @@ public class IndiceDeCoincidencia {
 		indiceDeCoincidenciaDasLetras.forEach((k,v) -> {
 			indiceDeCoincidenciaDasLetras.put(k, v*(v-1));
 		});
-		System.out.println(indiceDeCoincidenciaDasLetras);
+		//System.out.println(indiceDeCoincidenciaDasLetras);
 	}
 
 	private void verificarFrequenciaDeLetrasDoTexto(String textoCriptografado) {	
@@ -44,7 +45,7 @@ public class IndiceDeCoincidencia {
 			indiceDeCoincidenciaDasLetras.put(textoCriptografado.charAt(i),
 					indiceDeCoincidenciaDasLetras.get(textoCriptografado.charAt(i)) + 1);
 		}
-		System.out.println(indiceDeCoincidenciaDasLetras);
+		//System.out.println(indiceDeCoincidenciaDasLetras);
 	}
 
 	private void inicializarindiceDeCoincidenciaDasLetras() {
