@@ -1,51 +1,38 @@
 package com.barbsmfe.domain;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 public class IndiceDeCoincidencia {
 
 	private Map<Character, Double> indiceDeCoincidenciaDasLetras;
-	private static DecimalFormat df = new DecimalFormat("#.#####");
-
-	public IndiceDeCoincidencia() {
-		inicializarindiceDeCoincidenciaDasLetras();
-	}
 
 	public double encontrarIndiceDeCoincidencia(String textoCriptografado) {
-		textoCriptografado = textoCriptografado.replaceAll("\\s+", "");
+		inicializarindiceDeCoincidenciaDasLetras();
 		verificarFrequenciaDeLetrasDoTexto(textoCriptografado);
 
-		double divisor = textoCriptografado.length()*(textoCriptografado.length()-1);
-		
+		double divisor = textoCriptografado.length() * (textoCriptografado.length() - 1);
+
 		verificarIndiceDeCoincidenciaDasLetrasDoTexto();
-		double indiceDeCoincidencia = verificarIndiceDeCoincidenciaDoTexto(divisor);		
-		
-		//System.out.println(indiceDeCoincidencia);
-		return indiceDeCoincidencia;
-	}
-	
-	private double verificarIndiceDeCoincidenciaDoTexto(double divisor) {
-		indiceDeCoincidenciaDasLetras.forEach((k,v) -> {
-			indiceDeCoincidenciaDasLetras.put(k, Double.parseDouble((df.format(v/divisor)).replace(",", ".")));
-		});		
-		return indiceDeCoincidenciaDasLetras.values().stream().mapToDouble(Double::valueOf).sum();
-	}
-	
-	private void verificarIndiceDeCoincidenciaDasLetrasDoTexto() {		
-		indiceDeCoincidenciaDasLetras.forEach((k,v) -> {
-			indiceDeCoincidenciaDasLetras.put(k, v*(v-1));
-		});
-		//System.out.println(indiceDeCoincidenciaDasLetras);
+
+		return verificarIndiceDeCoincidenciaDoTexto(divisor);
 	}
 
-	private void verificarFrequenciaDeLetrasDoTexto(String textoCriptografado) {	
+	private double verificarIndiceDeCoincidenciaDoTexto(double divisor) {
+		return (indiceDeCoincidenciaDasLetras.values().stream().mapToDouble(Double::valueOf).sum()) / divisor;
+	}
+
+	private void verificarIndiceDeCoincidenciaDasLetrasDoTexto() {
+		indiceDeCoincidenciaDasLetras.forEach((k, v) -> {
+			indiceDeCoincidenciaDasLetras.put(k, v * (v - 1));
+		});
+	}
+	
+	private void verificarFrequenciaDeLetrasDoTexto(String textoCriptografado) {
 		for (int i = 0; i < textoCriptografado.length(); i++) {
 			indiceDeCoincidenciaDasLetras.put(textoCriptografado.charAt(i),
 					indiceDeCoincidenciaDasLetras.get(textoCriptografado.charAt(i)) + 1);
-		}
-		//System.out.println(indiceDeCoincidenciaDasLetras);
+		}		
 	}
 
 	private void inicializarindiceDeCoincidenciaDasLetras() {
@@ -77,5 +64,4 @@ public class IndiceDeCoincidencia {
 		indiceDeCoincidenciaDasLetras.put('y', 0.0);
 		indiceDeCoincidenciaDasLetras.put('z', 0.0);
 	}
-
 }
