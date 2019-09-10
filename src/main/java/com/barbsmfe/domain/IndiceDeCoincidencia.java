@@ -28,14 +28,17 @@ public class IndiceDeCoincidencia {
 		});
 	}
 	
-	private void verificarFrequenciaDeLetrasDoTexto(String textoCriptografado) {
+	public Map<Character, Double> verificarFrequenciaDeLetrasDoTexto(String textoCriptografado) {
+		Map<Character, Double> frequenciaLetras = new HashMap<Character, Double>();
 		for (int i = 0; i < textoCriptografado.length(); i++) {
 			indiceDeCoincidenciaDasLetras.put(textoCriptografado.charAt(i),
 					indiceDeCoincidenciaDasLetras.get(textoCriptografado.charAt(i)) + 1);
 		}		
+		frequenciaLetras = indiceDeCoincidenciaDasLetras;
+		return frequenciaLetras;
 	}
 
-	private void inicializarindiceDeCoincidenciaDasLetras() {
+	public void inicializarindiceDeCoincidenciaDasLetras() {
 		indiceDeCoincidenciaDasLetras = new HashMap<Character, Double>();
 		indiceDeCoincidenciaDasLetras.put('a', 0.0);
 		indiceDeCoincidenciaDasLetras.put('b', 0.0);

@@ -6,12 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.barbsmfe.model.FrequenciaAlfabeto;
+
 public class Chave {
 
 	private static final int TAMANHO_MAXIMO_CHAVE = 10;
+	private static final String ALFABETO = "abcdefghijklmnopqrstuvwxyz";
 	private Map<Integer, Double> tamanhoChavePorIc;
 	private List<String> strings;
 	private IndiceDeCoincidencia ic;
+	private FrequenciaAlfabeto fa;
 	private String textoCriptografado;
 
 	public Chave(String textoCriptografado) {
@@ -34,9 +38,24 @@ public class Chave {
 
 		strings = new ArrayList<String>();
 		ic = new IndiceDeCoincidencia();
+		fa = new FrequenciaAlfabeto();
 	}
 
-	public List<String> organizarTextoCriptografado(int tamanhoChave) {
+	public String encontrarChave() {
+		List<String> colunasOrganizadas = organizarTextoCriptografado(encontrarTamanhoChave());
+		Map<Character, Double> frequenciaAlfabetoPtBr = fa.getFrequenciaLetrasPtBr();
+		Map<Character, Double> frequenciaLetras = new HashMap<Character, Double>();
+
+		String chave = "";
+		for (String palavraCriptografada : colunasOrganizadas) {
+			ic.inicializarindiceDeCoincidenciaDasLetras();
+			frequenciaLetras = ic.verificarFrequenciaDeLetrasDoTexto(palavraCriptografada);
+			chave = chave + chiSquare(frequenciaAlfabetoPtBr, frequenciaLetras, palavraCriptografada);
+		}
+		return chave;
+	}
+
+	private List<String> organizarTextoCriptografado(int tamanhoChave) {
 		strings.clear();
 		int index = 0;
 		while (index < textoCriptografado.length()) {
@@ -44,16 +63,16 @@ public class Chave {
 					textoCriptografado.substring(index, Math.min(index + tamanhoChave, textoCriptografado.length())));
 			index += tamanhoChave;
 		}
-		System.out.println(strings);
 		return organizarColunas(strings);
 	}
 
-	public void separarString() {
+	private int encontrarTamanhoChave() {
+		int tamanhoChave = 0;
 		for (int i = 1; i <= TAMANHO_MAXIMO_CHAVE; i++) {
-			encontrarTamanhoChave(organizarTextoCriptografado(i), i);
+			tamanhoChave = encontrarTamanhoChave(organizarTextoCriptografado(i), i);
 			strings.clear();
 		}
-		//System.out.println(tamanhoChavePorIc);
+		return tamanhoChave;
 	}
 
 	private List<String> organizarColunas(List<String> palavras) {
@@ -73,11 +92,36 @@ public class Chave {
 		return palavras;
 	}
 
-	private void encontrarTamanhoChave(List<String> palavras, int index) {
+	private int encontrarTamanhoChave(List<String> palavras, int index) {
 		double[] icPalavras = { 0 };
 		palavras.forEach(palavra -> {
 			icPalavras[0] += ic.encontrarIndiceDeCoincidencia(palavra);
 		});
 		tamanhoChavePorIc.put(index, icPalavras[0] / index);
+		return tamanhoChavePorIc.entrySet().stream()
+				.max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+	}
+
+	private Character chiSquare(Map<Character, Double> frequenciaAlfabetoPtBr, Map<Character, Double> frequenciaLetras,
+			String palavraCriptografada) {
+		Map<Character, Double> chiSquare = new HashMap<Character, Double>();
+		for (int i = 0; i < ALFABETO.length(); i++) {
+			double chiSquared = 0;
+			for (char letra : frequenciaAlfabetoPtBr.keySet()) {
+				int novoIndex = ALFABETO.indexOf(letra) + i;
+				if (novoIndex > 25) {
+					novoIndex = novoIndex - 26;
+				}
+
+				if (frequenciaLetras.containsKey(ALFABETO.charAt(novoIndex))) {
+					double frequenciaDaLetra = frequenciaLetras.get(ALFABETO.charAt(novoIndex));
+					double frequenciaMultiplicada = frequenciaAlfabetoPtBr.get(letra) * palavraCriptografada.length();
+					chiSquared += Math.pow((frequenciaDaLetra - frequenciaMultiplicada), 2) / frequenciaMultiplicada;
+				}
+			}
+			chiSquare.put(ALFABETO.charAt(i), chiSquared);
+		}
+		return chiSquare.entrySet().stream().min((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1)
+				.get().getKey();
 	}
 }

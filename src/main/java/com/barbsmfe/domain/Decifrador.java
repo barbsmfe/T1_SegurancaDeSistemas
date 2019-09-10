@@ -1,25 +1,30 @@
 package com.barbsmfe.domain;
 
-import java.util.List;
+
+import com.barbsmfe.model.FrequenciaAlfabeto;
 
 public class Decifrador {
 	
-	private int tamanhoChave;
 	private Chave chave;
-	private IndiceDeCoincidencia ic;
-	private String palavra;
+	private String textoCriptografado;
 	
-	//fazer método que lê arquivo
+	//fazer mÃ©todo que lÃª arquivo
+	public void leitorDeArquivo() {
+		
+	}
 	
 	public Decifrador(String palavraCriptografada) {
-		palavra = palavraCriptografada;
 		chave = new Chave(palavraCriptografada);
-		ic = new IndiceDeCoincidencia();
 	}
 	
 	public void fazACoisa() {
-		List<String> coisa = chave.organizarTextoCriptografado(7);
-		System.out.println(coisa);
+		
+		System.out.println(chave.encontrarChave());
+		
 	}
-
+	
+	public void decodificarTexto() {
+		
+	}
+	
 }
