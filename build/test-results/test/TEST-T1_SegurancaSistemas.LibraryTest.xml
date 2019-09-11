@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="T1_SegurancaSistemas.LibraryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-09-11T15:53:14" hostname="ilegra-OptiPlex-3020" time="0.001">
-  <properties/>
-  <testcase name="testSomeLibraryMethod" classname="T1_SegurancaSistemas.LibraryTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

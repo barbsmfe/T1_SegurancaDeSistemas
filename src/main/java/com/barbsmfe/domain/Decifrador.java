@@ -23,15 +23,15 @@ public class Decifrador {
 			}
 			bufferedReader.close();
 		} catch (FileNotFoundException ex) {
-			System.out.println("Unable to open file '" + nomeArquivo + "'");
+			System.out.println("Não foi possível encontrar o arquivo:  '" + nomeArquivo + "'");
 		} catch (IOException ex) {
-			System.out.println("Error reading file '" + nomeArquivo + "'");
+			System.out.println("Erro ao ler o arquivo: '" + nomeArquivo + "'");
 		}
 	}
 
 	public Decifrador(String palavraCriptografada) {
 		textoCriptografado = "";
-		leitorDeArquivo("textoCriptografado.txt");
+		leitorDeArquivo(palavraCriptografada);
 		chave = new Chave(textoCriptografado);
 	}
 
