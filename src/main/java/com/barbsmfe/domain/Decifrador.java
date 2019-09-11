@@ -1,30 +1,59 @@
 package com.barbsmfe.domain;
 
-
-import com.barbsmfe.model.FrequenciaAlfabeto;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Decifrador {
-	
+
 	private Chave chave;
 	private String textoCriptografado;
-	
-	//fazer mÃ©todo que lÃª arquivo
-	public void leitorDeArquivo() {
-		
+	private String chaveEncontrada;
+	private String textoDecodificado;
+
+	public void leitorDeArquivo(String nomeArquivo) {
+		String line = "";
+		try {
+			FileReader fileReader = new FileReader(nomeArquivo);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+			while ((line = bufferedReader.readLine()) != null) {
+				textoCriptografado = textoCriptografado + line;
+			}
+			bufferedReader.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("Unable to open file '" + nomeArquivo + "'");
+		} catch (IOException ex) {
+			System.out.println("Error reading file '" + nomeArquivo + "'");
+		}
 	}
-	
+
 	public Decifrador(String palavraCriptografada) {
-		chave = new Chave(palavraCriptografada);
+		textoCriptografado = "";
+		leitorDeArquivo("textoCriptografado.txt");
+		chave = new Chave(textoCriptografado);
 	}
-	
-	public void fazACoisa() {
-		
-		System.out.println(chave.encontrarChave());
-		
-	}
-	
+
 	public void decodificarTexto() {
-		
+		chaveEncontrada = chave.encontrarChave();
+		textoDecodificado = "";
+		int j = 0;
+		for (int i = 0; i < textoCriptografado.length(); i++) {
+			if (j >= chaveEncontrada.length()) {
+				j = 0;
+			}
+			int x = (textoCriptografado.charAt(i) - chaveEncontrada.charAt(j) + 26) % 26;
+			textoDecodificado += chave.ALFABETO.charAt(x);
+			j++;
+		}
 	}
+
+	public String getChaveEncontrada() {
+		return chaveEncontrada;
+	}	
 	
+	public String getTextoDecodificado() {
+		return textoDecodificado;
+	}
 }

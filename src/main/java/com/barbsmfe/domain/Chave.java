@@ -11,7 +11,7 @@ import com.barbsmfe.model.FrequenciaAlfabeto;
 public class Chave {
 
 	private static final int TAMANHO_MAXIMO_CHAVE = 10;
-	private static final String ALFABETO = "abcdefghijklmnopqrstuvwxyz";
+	protected static final String ALFABETO = "abcdefghijklmnopqrstuvwxyz";
 	private Map<Integer, Double> tamanhoChavePorIc;
 	private List<String> strings;
 	private IndiceDeCoincidencia ic;
