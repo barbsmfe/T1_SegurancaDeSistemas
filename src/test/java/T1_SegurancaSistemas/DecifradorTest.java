@@ -3,7 +3,6 @@ package T1_SegurancaSistemas;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import com.barbsmfe.domain.Chave;
 import com.barbsmfe.domain.Decifrador;
 import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
@@ -11,7 +10,6 @@ import java.io.PrintStream;
 
 public class DecifradorTest {
 	
-	private Chave chave;
 	private Decifrador decifrador;
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final PrintStream originalOut = System.out;
