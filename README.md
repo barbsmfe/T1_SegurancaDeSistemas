@@ -17,6 +17,9 @@ Basta entrar onde está a classe main e executar o programa, quando pedido o nom
 
         textoCriptografado.txt
 
+
+O programa irá perguntar se o texto está em português ou não, no caso desde texto, ele está em português, basta digitar 1, se o caso teste usado estiver em inglês, basta digitar 2.
+
 Agora é só apertar a tecla Enter e ver o resultado exibido em tela.
 
 ### Terminal
@@ -32,6 +35,8 @@ Isso irá gerar um arquivo .jar na pasta ./build/libs/, para executar esse arqui
 Quando pedido o arquivo, digitar:
 
         textoCriptografado.txt
+
+O programa irá perguntar se o texto está em português ou não, no caso desde texto, ele está em português, basta digitar 1, se o caso teste usado estiver em inglês, basta digitar 2.
 
 Agora é só apertar a tecla Enter e ver o resultado exibido em tela.
  
