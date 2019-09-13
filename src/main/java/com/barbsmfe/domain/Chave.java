@@ -18,7 +18,7 @@ public class Chave {
 	private FrequenciaAlfabeto fa;
 	private String textoCriptografado;
 
-	public Chave(String textoCriptografado) {
+	public Chave(String textoCriptografado, boolean portugues) {
 		textoCriptografado = textoCriptografado.replaceAll("\\s+", "");
 		textoCriptografado = textoCriptografado.toLowerCase();
 
@@ -38,7 +38,7 @@ public class Chave {
 
 		strings = new ArrayList<String>();
 		ic = new IndiceDeCoincidencia();
-		fa = new FrequenciaAlfabeto();
+		fa = new FrequenciaAlfabeto(portugues);
 	}
 
 	public String encontrarChave() {

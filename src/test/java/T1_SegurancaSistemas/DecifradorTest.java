@@ -26,20 +26,20 @@ public class DecifradorTest {
 	
 	@Test
 	public void testarFileNotFoundExceptionDuranteLeituraDeTexto() {
-		decifrador = new Decifrador("buuuuuga.txt");
+		decifrador = new Decifrador("buuuuuga.txt", true);
 		assertEquals("Não foi possível encontrar o arquivo:  'buuuuuga.txt'\n", outContent.toString());
 	}
 	
 	@Test
 	public void testarSeValorDeCHaveEncontradoEstaCorreto() {
-		decifrador = new Decifrador("textoCriptografado.txt");
+		decifrador = new Decifrador("textoCriptografado.txt", true);
 		decifrador.decodificarTexto();
 		assertEquals(7, decifrador.getChaveEncontrada().length());
 	}
 	
 	@Test
 	public void testarSeAChaveEncontradaEstaCorreta() {
-		decifrador = new Decifrador("textoCriptografado.txt");
+		decifrador = new Decifrador("textoCriptografado.txt", true);
 		decifrador.decodificarTexto();
 		assertEquals("avelino", decifrador.getChaveEncontrada());
 	}

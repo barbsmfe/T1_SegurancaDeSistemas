@@ -11,6 +11,7 @@ public class Decifrador {
 	private String textoCriptografado;
 	private String chaveEncontrada;
 	private String textoDecodificado;
+	private boolean portugues;
 
 	public void leitorDeArquivo(String nomeArquivo) {
 		String line = "";
@@ -29,14 +30,15 @@ public class Decifrador {
 		}
 	}
 
-	public Decifrador(String palavraCriptografada) {
+	public Decifrador(String palavraCriptografada, boolean portugues) {
 		textoCriptografado = "";
 		leitorDeArquivo(palavraCriptografada);
-		chave = new Chave(textoCriptografado);
+		chave = new Chave(textoCriptografado, portugues);
 	}
 
 	public void decodificarTexto() {
 		chaveEncontrada = chave.encontrarChave();
+		System.out.println(chaveEncontrada);
 		textoDecodificado = "";
 		int j = 0;
 		for (int i = 0; i < textoCriptografado.length(); i++) {
