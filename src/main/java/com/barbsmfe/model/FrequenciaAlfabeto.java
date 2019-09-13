@@ -48,7 +48,7 @@ public class FrequenciaAlfabeto {
 		this.portugues = portugues;
 	}
 
-	public Map<Character, Double> getFrequenciaLetrasPtBr() {
+	public Map<Character, Double> getFrequenciaLetras() {
 		frequenciaLetrasPtBr.entrySet().stream().sorted(Map.Entry.<Character, Double>comparingByValue().reversed())
 				.forEachOrdered(x -> frequenciaLetrasPtBr.put(x.getKey(), x.getValue()));
 		return frequenciaLetrasPtBr;

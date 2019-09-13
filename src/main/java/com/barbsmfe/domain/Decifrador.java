@@ -38,7 +38,6 @@ public class Decifrador {
 
 	public void decodificarTexto() {
 		chaveEncontrada = chave.encontrarChave();
-		System.out.println(chaveEncontrada);
 		textoDecodificado = "";
 		int j = 0;
 		for (int i = 0; i < textoCriptografado.length(); i++) {

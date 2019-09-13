@@ -43,14 +43,14 @@ public class Chave {
 
 	public String encontrarChave() {
 		List<String> colunasOrganizadas = organizarTextoCriptografado(encontrarTamanhoChave());
-		Map<Character, Double> frequenciaAlfabetoPtBr = fa.getFrequenciaLetrasPtBr();
+		Map<Character, Double> frequenciaAlfabeto = fa.getFrequenciaLetras();
 		Map<Character, Double> frequenciaLetras = new HashMap<Character, Double>();
 
 		String chave = "";
 		for (String palavraCriptografada : colunasOrganizadas) {
 			ic.inicializarindiceDeCoincidenciaDasLetras();
 			frequenciaLetras = ic.verificarFrequenciaDeLetrasDoTexto(palavraCriptografada);
-			chave = chave + chiSquare(frequenciaAlfabetoPtBr, frequenciaLetras, palavraCriptografada);
+			chave = chave + chiSquare(frequenciaAlfabeto, frequenciaLetras, palavraCriptografada);
 		}
 		return chave;
 	}
